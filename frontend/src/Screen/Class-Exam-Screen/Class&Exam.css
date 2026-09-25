@@ -1,0 +1,44 @@
+/* Total Screen */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/* Class-Exam-Screen */
+
+.Class-Exam-Screen {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: 100vh
+}
+
+.Class-Exam-Nav {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+/* Class-Exam-Tabs */
+
+.Class-Exam-Tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.Class-Exam-Btn {
+    padding: 20px;
+    width: 100%;
+    font-size: 15px;
+}
+
+/* Class-Exam-Content */
+
+.Class-Exam-Content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

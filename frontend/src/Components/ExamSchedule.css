@@ -1,0 +1,89 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.Exam-Screen {
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.Exam-Title {
+    font-size: 10px;
+}
+
+.Exam-Filter {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10px;
+    gap: 20px;
+}
+
+.Filter-Day {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.Exam-Date {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+
+.Exam-Class {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.Exam-Date input,
+.Exam-Class input {
+    padding: 5px;
+    width: 100%;
+}
+
+.Exam-Date p,
+.Exam-Class p {
+    font-size: 15px;
+}
+
+.Filter-Btn button {
+    width: 100%;
+    padding: 20px;
+}
+
+.Exam-Day {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+
+.Exam-Day ul {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.Exam-Day ul li {
+    list-style: none;
+
+}
+
+.Exam {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 15px;
+}

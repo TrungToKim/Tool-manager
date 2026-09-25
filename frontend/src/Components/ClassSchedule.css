@@ -1,0 +1,114 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.Class-Screen {
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.Class-Sign,
+.Class-Calendar {
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+p {
+    font-size: 20px;
+}
+
+.Sign ul {
+    height: 400px;
+    overflow: auto;
+    border: 1px solid black;
+    scrollbar-width: none;
+}
+
+.Sign ul li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 5px;
+}
+
+.Filter {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px;
+}
+
+.Filter-checkbox input {
+    padding: 20px;
+    width: 100%;
+}
+
+.Filter-checkbox ::placeholder {
+    font-size: 20px;
+}
+
+.Filter-prioritize {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.Filter-day {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.Filter-course {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.Filter-duplication {
+    gap: 5px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.Submit-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 10px;
+}
+
+.Submit-btn button {
+    padding: 10px;
+    width: 100%;
+}
+
+.Calendar-columns th,
+.Calendar-row th {
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.Calendar-row td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.Calendar-row th:hover {
+    background-color: antiquewhite;
+}

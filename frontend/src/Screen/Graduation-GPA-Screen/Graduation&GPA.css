@@ -1,0 +1,31 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.Graduation-GPA-Screen {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10px;
+    gap: 10px;
+}
+
+.Graduation-GPA-Content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid;
+}
+
+.Graduation-Screen {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.GPA-Screen {
+    border: 1px solid black;
+    padding: 10px;
+}
