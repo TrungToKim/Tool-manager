@@ -98,17 +98,33 @@ p {
     width: 100%;
 }
 
-.Calendar-columns th,
-.Calendar-row th {
+.table-time {
     border: 1px solid black;
-    padding: 20px;
+    font-size: 20px;
 }
 
-.Calendar-row td {
-    border: 1px solid black;
+.class-info {
+    position: absolute;
+    left: 100%;
+    top: 0;
+
+    width: 180px;
     padding: 10px;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.2s ease;
+    z-index: 10;
 }
 
-.Calendar-row th:hover {
-    background-color: antiquewhite;
+.class-item:hover .class-info {
+    opacity: 1;
+    visibility: visible;
 }

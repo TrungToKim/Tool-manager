@@ -1,6 +1,9 @@
 import './ClassSchedule.css'
 import { useState } from 'react'
 
+const days = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7']
+const sessions = ['CA1', 'CA2', 'CA3', 'CA4']
+
 const Major = [
     // Dai so tuyen tinh
     { id: 1, SubId: 'DSTT', ClassId: 'DSTT01', name: 'Dai so tuyen tinh', credit: 3, date: 'T2', room: 'A7-301', time: 'CA1' },
@@ -49,6 +52,8 @@ export default function ClassSchedule() {
     const [selectDate, setSelectDate] = useState<string[]>([])
     const [selectPri, setSelectPri] = useState<string[]>([])
     const [dup, setDup] = useState<boolean>(false)
+    const [same, setSame] = useState<boolean>(false)
+    const [schedule, setSchedule] = useState<number[]>([])
 
     function handleSelected(id: number, checked: boolean) {
         if (checked) {
@@ -93,8 +98,9 @@ export default function ClassSchedule() {
         }
     }
 
-    function checkDup(checked: boolean) {
+    function isCheck(checked: boolean) {
         setDup(checked)
+        setSame(checked)
     }
 
     function isDuplication(class1: typeof Major[0], class2: typeof Major[0]): boolean {
@@ -105,9 +111,15 @@ export default function ClassSchedule() {
         return false
     }
 
+    function isSameSubject(class1: typeof Major[0], class2: typeof Major[0]): boolean {
+        if (class1.SubId === class2.SubId) return true
+        return false
+    }
+
     const selectedClasses = Major.filter(item =>
         selected.includes(item.id)
     )
+
 
     const Filter = Major.filter(item => {
         const FilterCredit =
@@ -121,14 +133,31 @@ export default function ClassSchedule() {
         const FilterPri = isPriority(item.time, selectPri)
 
         const isDup = dup && selectedClasses.some(
-            selectedClass => selectedClass.id !== item.id && isDuplication(item, selectedClass)
-        );
+            selectedClass =>
+                selectedClass.id !== item.id &&
+                isDuplication(item, selectedClass)
+        )
 
-        const FilterDup =
-            !dup || !isDup
+        const isSame = same && selectedClasses.some(
+            selectedClass =>
+                selectedClass.id !== item.id &&
+                isSameSubject(item, selectedClass)
+        )
 
-        return FilterCredit && FilterDate && FilterPri && FilterDup
+        const FilterCheck =
+            (!dup || !isDup) &&
+            (!same || !isSame)
+
+        return FilterCredit && FilterDate && FilterPri && FilterCheck
     })
+
+    const scheduleClasses = Major.filter(item =>
+        schedule.includes(item.id)
+    )
+
+    function ShowCalander() {
+        setSchedule(selected)
+    }
 
     return (
         <>
@@ -141,12 +170,13 @@ export default function ClassSchedule() {
                         <input type="text" placeholder='Nhập thông tin cần tìm tại đây' />
                     </div>
                     <div>Tổng số môn đã chọn: {selected.length} </div>
-                    <div>Tổng số tín đã chọn: {selected.length * 3} </div>
+                    <div>Tổng số tín đã chọn: 12 </div>
                     <div className='Sign'>
                         <ul>
                             {Filter.map(item => (
                                 <li key={item.id}>
                                     <input type="checkbox"
+                                        checked={selected.includes(item.id)}
                                         onChange={e => { handleSelected(item.id, e.target.checked) }}
                                     />
                                     {item.name} {item.credit} {item.room} {item.date} {item.time}
@@ -210,73 +240,59 @@ export default function ClassSchedule() {
                             </div>
                             <div className='Filter-duplication'>
                                 <input type="Checkbox"
-                                    checked={dup}
-                                    onChange={e => checkDup(e.target.checked)}
+                                    onChange={e => isCheck(e.target.checked)}
                                 /> Lọc Trùng
                             </div>
                         </div>
                     </div>
                     <div className='Submit-btn'>
                         <button>Reset</button>
-                        <button>Sắp Xếp</button>
+                        <button
+                            onClick={ShowCalander}
+                        >Sắp Xếp</button>
                     </div>
                 </div>
                 <div className='Class-Calendar'>
-                    <table className='Calendar-table'>
-                        <thead className='Calendar-columns'>
+                    <table className="Calendar-table">
+                        <thead>
                             <tr>
                                 <th></th>
-                                <th>T2</th>
-                                <th>T3</th>
-                                <th>T4</th>
-                                <th>T5</th>
-                                <th>T6</th>
-                                <th>T7</th>
+                                {days.map(day => (
+                                    <th key={day}>{day}</th>
+                                ))}
                             </tr>
                         </thead>
-                        <tbody className='Calendar-row'>
-                            <tr>
-                                <td>Ca 1</td>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </tbody>
-                        <tbody className='Calendar-row'>
-                            <tr>
-                                <td>Ca 2</td>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </tbody>
-                        <tbody className='Calendar-row'>
-                            <tr>
-                                <td>Ca 3</td>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </tbody>
-                        <tbody className='Calendar-row'>
-                            <tr>
-                                <td>Ca 4</td>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tbody>
+                            {sessions.map(session => (
+                                <tr key={session}>
+                                    <td>{session.replace('CA', 'Ca ')}</td>
+                                    {days.map(day => {
+                                        const classItem = scheduleClasses.find(
+                                            item =>
+                                                item.date === day &&
+                                                item.time === session
+                                        )
+                                        return (
+                                            <td className="table-time" key={day}>
+                                                {classItem && (
+                                                    <div className="class-item">
+                                                        <div className="class-name">
+                                                            {classItem.name}
+                                                        </div>
+                                                        <div className="class-info">
+                                                            <div>Lớp: {classItem.ClassId}</div>
+                                                            <div>Tín chỉ: {classItem.credit}</div>
+                                                            <div>Phòng: {classItem.room}</div>
+                                                            <div>Thứ: {classItem.date}</div>
+                                                            <div>Ca: {classItem.time}</div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
