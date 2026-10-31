@@ -55,6 +55,14 @@ export default function ClassSchedule() {
     const [same, setSame] = useState<boolean>(false)
     const [schedule, setSchedule] = useState<number[]>([])
 
+    const scheduleClasses = Major.filter(item =>
+        schedule.includes(item.id)
+    )
+
+    const selectedClasses = Major.filter(item =>
+        selected.includes(item.id)
+    )
+
     function handleSelected(id: number, checked: boolean) {
         if (checked) {
             setSelected(prev => [...prev, id])
@@ -116,11 +124,6 @@ export default function ClassSchedule() {
         return false
     }
 
-    const selectedClasses = Major.filter(item =>
-        selected.includes(item.id)
-    )
-
-
     const Filter = Major.filter(item => {
         const FilterCredit =
             selectCredit.length === 0 ||
@@ -151,12 +154,25 @@ export default function ClassSchedule() {
         return FilterCredit && FilterDate && FilterPri && FilterCheck
     })
 
-    const scheduleClasses = Major.filter(item =>
-        schedule.includes(item.id)
-    )
-
     function ShowCalander() {
         setSchedule(selected)
+    }
+
+    function Reset() {
+        setSelected([])
+        setSchedule([])
+        setSelectCredit([])
+        setSelectDate([])
+        setSelectPri([])
+        setDup(false)
+        setSame(false)
+    }
+
+    function handleCredit(): number {
+        return selectedClasses.reduce(
+            (total, item) => total + item.credit,
+            0
+        )
     }
 
     return (
@@ -170,7 +186,7 @@ export default function ClassSchedule() {
                         <input type="text" placeholder='Nhập thông tin cần tìm tại đây' />
                     </div>
                     <div>Tổng số môn đã chọn: {selected.length} </div>
-                    <div>Tổng số tín đã chọn: 12 </div>
+                    <div>Tổng số tín đã chọn: {handleCredit()} </div>
                     <div className='Sign'>
                         <ul>
                             {Filter.map(item => (
@@ -246,7 +262,10 @@ export default function ClassSchedule() {
                         </div>
                     </div>
                     <div className='Submit-btn'>
-                        <button>Reset</button>
+                        <button
+                            onClick={Reset}
+                        >
+                            Reset</button>
                         <button
                             onClick={ShowCalander}
                         >Sắp Xếp</button>
@@ -278,13 +297,6 @@ export default function ClassSchedule() {
                                                     <div className="class-item">
                                                         <div className="class-name">
                                                             {classItem.name}
-                                                        </div>
-                                                        <div className="class-info">
-                                                            <div>Lớp: {classItem.ClassId}</div>
-                                                            <div>Tín chỉ: {classItem.credit}</div>
-                                                            <div>Phòng: {classItem.room}</div>
-                                                            <div>Thứ: {classItem.date}</div>
-                                                            <div>Ca: {classItem.time}</div>
                                                         </div>
                                                     </div>
                                                 )}
